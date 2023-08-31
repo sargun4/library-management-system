@@ -32,7 +32,6 @@ public class LibraryManagementSystem {
         }
     }
     
-    // Librarian functionalities
     private static void librarianMenu(Library lib, Scanner sc) {
         while (true) {
             System.out.println("1. Register Member");
@@ -67,7 +66,7 @@ public class LibraryManagementSystem {
                     break;
                 case 7:
                     System.out.println("Exiting the librarian menu.");
-                    return; // Exit the loop and go back to the main menu
+                    return; 
                 default:
                     System.out.println("Invalid choice. Please choose again.");
             }
@@ -162,7 +161,6 @@ public class LibraryManagementSystem {
         }
     }
     
-    // Member functionalities
     private static void memberMenu(Library lib, Scanner sc) {
         System.out.println("Enter Member Name:");
         String name = sc.nextLine();
@@ -215,7 +213,6 @@ public class LibraryManagementSystem {
             }
         }
     }
-    // Implement member functionalities as separate methods here
     private static void viewAvailableBooks(Library lib) {
         List<Book> availableBooks = lib.getAvailableBooks();
         System.out.println("Available Books:");
@@ -228,7 +225,7 @@ public class LibraryManagementSystem {
         }
     }
     
-    // re
+    // borr
     private static void borrowBook(Library lib, Scanner sc) {
         System.out.println("Enter the Book ID to borrow:");
         int bookId = sc.nextInt();
@@ -253,11 +250,9 @@ public class LibraryManagementSystem {
             return;
         }
     
-        // set due date
         LocalDateTime dueDate = bookToBorrow.calculateDueDate();
         bookToBorrow.setDueDate(dueDate); 
 
-        // Update book availability and member's borrowed books
         bookToBorrow.setAvailableCopies(bookToBorrow.getAvailableCopies() - 1);
         currMember.getBooksBorrowed().add(bookToBorrow);
 
@@ -310,6 +305,7 @@ public class LibraryManagementSystem {
         ///calc fine if due date is passed
         if (dueDate != null && returndate.isAfter(dueDate)) {
             long secondsLate = ChronoUnit.SECONDS.between(dueDate, returndate);
+            //logic-taking rounded off val of absolute diff of dueDate & returndate
             double fine = Math.round(Math.abs(secondsLate) * 3.0); // fine of 3 Rs per sec
             currMember.setDues(currMember.getDues() + fine);
             System.out.println("A fine of " + fine + " rupees has been applied for late return.");
