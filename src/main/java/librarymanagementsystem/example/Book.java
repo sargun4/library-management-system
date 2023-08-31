@@ -45,21 +45,19 @@ public class Book {
     private LocalDateTime dueDate;
     private LocalDateTime returnDate;
 
-    //check
     public LocalDateTime calculateDueDate() {
-       // Calculate and return due date as 10 days from now
+       // 10 days from now; assuming 1sec=1day
         return LocalDateTime.now().plusSeconds(10);
     }
 
-    //check
     public void setDueDate(LocalDateTime dueDate) {
         this.dueDate =dueDate;
     }
-    public LocalDateTime getDueDate() {//stores due date 
+    public LocalDateTime getDueDate() {//store due date 
         return dueDate;
     }
 
-    //imp check~!!!!
+    //imp 
     public LocalDateTime getReturnDate() {
         return LocalDateTime.now();
     }

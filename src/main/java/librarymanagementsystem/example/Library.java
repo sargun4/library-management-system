@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Library {
     private List<Book> books;
     private List<Member> members;
-    private Member currentLoggedInMember; // new
+    private Member currentLoggedInMember; //keepin track of member
 
     public Member getCurrentLoggedInMember() {
         return currentLoggedInMember;
@@ -78,7 +78,7 @@ public class Library {
                 return member;
             }
         }
-        return null; // Member not found
+        return null; //Member not found
     }
 
     public Book findBook(int bookId) {
@@ -87,7 +87,7 @@ public class Library {
                 return book;
             }
         }
-        return null; // Book not found
+        return null; //Book not found
     }
 
     private Member findMemberById(int memberId) {
@@ -96,7 +96,7 @@ public class Library {
                 return member;
             }
         }
-        return null; // Member not found
+        return null; //Member not foun
     }
     public void viewAllMembersWithBooksAndFines() {
         System.out.println("Members with Borrowed Books and Fines:");

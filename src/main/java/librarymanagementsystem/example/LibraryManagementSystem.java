@@ -229,13 +229,11 @@ public class LibraryManagementSystem {
     }
     
     // re
-
     private static void borrowBook(Library lib, Scanner sc) {
         System.out.println("Enter the Book ID to borrow:");
         int bookId = sc.nextInt();
         sc.nextLine();
     
-        // Get the currently logged in member
         Member currMember = lib.getCurrentLoggedInMember();
     
         Book bookToBorrow = lib.findBook(bookId);
@@ -263,13 +261,11 @@ public class LibraryManagementSystem {
         bookToBorrow.setAvailableCopies(bookToBorrow.getAvailableCopies() - 1);
         currMember.getBooksBorrowed().add(bookToBorrow);
 
-        //due date is set to 10 sec after borrowed time
+        //due date is 10 sec after borrowed time
         System.out.println("Book successfully borrowed! Due date: " + dueDate);
         }    
             
         
-
-    //CHECK
     private static void returnBook(Library lib, Scanner sc) {
         Member currMember = lib.getCurrentLoggedInMember();
         List<Book> booksBorrowed = currMember.getBooksBorrowed();
@@ -304,26 +300,23 @@ public class LibraryManagementSystem {
             return;
         }
         
-        LocalDateTime currDate = LocalDateTime.now(); // This is the return date
-        LocalDateTime dueDate = bookToReturn.getDueDate(); // Retrieve stored due date
+        LocalDateTime currDate = LocalDateTime.now(); 
+        LocalDateTime dueDate = bookToReturn.getDueDate(); //stored due date
         
         System.out.printf("Due date: %s%n", dueDate);
-        System.out.printf("return date: %s%n", returndate);
+        System.out.printf("return date: %s%n", returndate);//ythis is the return date
         
 
-        /// Calculate fine if due date is passed
+        ///calc fine if due date is passed
         if (dueDate != null && returndate.isAfter(dueDate)) {
             long secondsLate = ChronoUnit.SECONDS.between(dueDate, returndate);
-            double fine = Math.round(Math.abs(secondsLate) * 3.0); // fine of 3 Rs per second
+            double fine = Math.round(Math.abs(secondsLate) * 3.0); // fine of 3 Rs per sec
             currMember.setDues(currMember.getDues() + fine);
             System.out.println("A fine of " + fine + " rupees has been applied for late return.");
         }
 
-
-        // Set the return date of the book
         bookToReturn.setReturnDate(currDate);
 
-        // Update book availability and member's borrowed books
         bookToReturn.setAvailableCopies(bookToReturn.getAvailableCopies() + 1);
         booksBorrowed.remove(bookToReturn);
 

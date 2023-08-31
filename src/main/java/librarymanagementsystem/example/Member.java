@@ -42,7 +42,6 @@ public class Member {
     public void setDues(double dues) {
         this.dues = dues;
     }
-
     public List<Book> getBooksBorrowed() {
         return booksBorrowed;
     }
