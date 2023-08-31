@@ -9,11 +9,13 @@ public class LibraryManagementSystem {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Library lib = new Library();
-
+        System.out.println("Library Portal Initialized");
+        System.out.println("--------------------------");
         while (true) {
             System.out.println("1. Enter as librarian");
             System.out.println("2. Enter as member");
             System.out.println("3. Exit");
+            System.out.println("--------------------------");
             int choice = sc.nextInt();
             sc.nextLine();
             switch (choice) {
@@ -33,6 +35,7 @@ public class LibraryManagementSystem {
     }
     
     private static void librarianMenu(Library lib, Scanner sc) {
+        System.out.println("--------------------------");
         while (true) {
             System.out.println("1. Register Member");
             System.out.println("2. Remove Member");
@@ -74,23 +77,28 @@ public class LibraryManagementSystem {
     }
 
     //librarian functionalities
+    // Inside the registerMember function
     private static void registerMember(Library lib, Scanner sc) {
+        System.out.println("--------------------------");
+
         System.out.println("Enter Member Name:");
         String name = sc.nextLine();
-    
+
         System.out.println("Enter Member Age:");
         int age = sc.nextInt();
         sc.nextLine();
-    
+
         System.out.println("Enter Member Phone Number:");
         String phoneNo = sc.nextLine();
-    
+        System.out.println("--------------------------");
         Member newMember = new Member(name, age, phoneNo);
         lib.registerMember(newMember);
-    
-        // System.out.println("Member Successfully Registered!");
+
+        // System.out.println("Member Successfully Registered with ID: " + newMember.getMemberId() );
     }
+
     private static void removeMember(Library lib, Scanner sc) {
+        System.out.println("--------------------------");
         System.out.println("Enter Member ID to Remove:");
         int memberId = sc.nextInt();
         sc.nextLine();
@@ -98,6 +106,7 @@ public class LibraryManagementSystem {
         lib.removeMember(memberId);
     }
     private static void addBook(Library lib, Scanner sc) {
+        System.out.println("--------------------------");
         System.out.println("Enter Book ID:");
         int bookId = sc.nextInt();
         sc.nextLine();
@@ -107,7 +116,8 @@ public class LibraryManagementSystem {
     
         System.out.println("Enter Author Name:");
         String author = sc.nextLine();
-    
+
+        System.out.println("--------------------------");
         // System.out.println("Enter Total Copies:");
         // int totalCopies = sc.nextInt();
         // sc.nextLine();
@@ -116,16 +126,19 @@ public class LibraryManagementSystem {
     }
     
     private static void removeBook(Library lib, Scanner sc) {
+        System.out.println("--------------------------");
         System.out.println("Enter Book ID to Remove:");
         int bookId = sc.nextInt();
         sc.nextLine();
         lib.removeBook(bookId);
+        System.out.println("--------------------------");
     }
     
     
     
     private static void listBooks(Library lib) {
         List<Book> books = lib.getAvailableBooks();
+        System.out.println("--------------------------");
         System.out.println("List of Available Books:");
         
         if (books.isEmpty()) {
@@ -145,6 +158,7 @@ public class LibraryManagementSystem {
     
     private static void listMembers(Library lib) {
         List<Member> members = lib.getMembers();
+        System.out.println("--------------------------");
         System.out.println("List of Registered Members:");
     
         if (members.isEmpty()) {
@@ -162,6 +176,7 @@ public class LibraryManagementSystem {
     }
     
     private static void memberMenu(Library lib, Scanner sc) {
+        System.out.println("--------------------------");
         System.out.println("Enter Member Name:");
         String name = sc.nextLine();
     
@@ -215,6 +230,7 @@ public class LibraryManagementSystem {
     }
     private static void viewAvailableBooks(Library lib) {
         List<Book> availableBooks = lib.getAvailableBooks();
+        System.out.println("--------------------------");
         System.out.println("Available Books:");
         for (Book book : availableBooks) {
             System.out.println("Book ID: " + book.getBookId());
@@ -227,6 +243,7 @@ public class LibraryManagementSystem {
     
     // borr
     private static void borrowBook(Library lib, Scanner sc) {
+        System.out.println("--------------------------");
         System.out.println("Enter the Book ID to borrow:");
         int bookId = sc.nextInt();
         sc.nextLine();
@@ -262,6 +279,7 @@ public class LibraryManagementSystem {
             
         
     private static void returnBook(Library lib, Scanner sc) {
+        System.out.println("--------------------------");
         Member currMember = lib.getCurrentLoggedInMember();
         List<Book> booksBorrowed = currMember.getBooksBorrowed();
         

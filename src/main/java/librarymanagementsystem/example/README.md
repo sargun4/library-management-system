@@ -13,7 +13,7 @@ These instructions will guide you on how to set up and run the Library Managemen
 
 ### Installing
 
-1. Clone the repository to your local machine:
+1. Clone the repository to your device:
 
 git clone https://github.com/your-username/library-management-system.git
 
