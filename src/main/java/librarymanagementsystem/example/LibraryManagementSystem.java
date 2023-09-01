@@ -117,12 +117,13 @@ public class LibraryManagementSystem {
         System.out.println("Enter Author Name:");
         String author = sc.nextLine();
 
-        System.out.println("--------------------------");
         // System.out.println("Enter Total Copies:");
         // int totalCopies = sc.nextInt();
         // sc.nextLine();
         Book newBook = new Book(bookId, title, author);
         lib.addBook(newBook);
+        
+        System.out.println("--------------------------");
     }
     
     private static void removeBook(Library lib, Scanner sc) {
@@ -242,6 +243,7 @@ public class LibraryManagementSystem {
     }
     
     // borr
+      
     private static void borrowBook(Library lib, Scanner sc) {
         System.out.println("--------------------------");
         System.out.println("Enter the Book ID to borrow:");
@@ -268,15 +270,17 @@ public class LibraryManagementSystem {
         }
     
         LocalDateTime dueDate = bookToBorrow.calculateDueDate();
-        bookToBorrow.setDueDate(dueDate); 
-
+        bookToBorrow.setDueDate(dueDate);
+    
+        // Decrement both available and total copies
         bookToBorrow.setAvailableCopies(bookToBorrow.getAvailableCopies() - 1);
+        bookToBorrow.setTotalCopies(bookToBorrow.getTotalCopies() - 1);
+    
         currMember.getBooksBorrowed().add(bookToBorrow);
-
-        //due date is 10 sec after borrowed time
+         //due date is 10 sec after borrowed time
         System.out.println("Book successfully borrowed! Due date: " + dueDate);
-        }    
-            
+        }
+                
         
     private static void returnBook(Library lib, Scanner sc) {
         System.out.println("--------------------------");
@@ -343,6 +347,8 @@ public class LibraryManagementSystem {
     
         if (booksBorrowed.isEmpty()) {
             System.out.println("You haven't borrowed any books.");
+            
+            System.out.println("---------------------------------");
             return;
         }
     
@@ -359,8 +365,11 @@ public class LibraryManagementSystem {
         Member currMember = lib.getCurrentLoggedInMember();
         double dues = currMember.getDues();
     
+        System.out.println("---------------------------------");
         if (dues == 0) {
             System.out.println("You don't have any dues.");
+            
+            System.out.println("---------------------------------");
             return;
         }
     
@@ -371,14 +380,20 @@ public class LibraryManagementSystem {
     
         if (payment <= 0) {
             System.out.println("Invalid payment amount.");
+            
+            System.out.println("---------------------------------");
             return;
         }
         if (payment > dues) {
             System.out.println("You cannot pay more than your dues.");
+            
+            System.out.println("---------------------------------");
             return;
         }
         currMember.setDues(dues - payment);
         System.out.println("Payment of " + payment + " Rs. successfully done. Remaining dues: " + currMember.getDues());
+    
+        System.out.println("---------------------------------");
     }
     
 }
