@@ -1,39 +1,29 @@
-# Library Management System
+# Library Management System- ASGN1
 
-This is a Java-based Library Management System that allows librarians to manage books and members, and members to borrow and return books.
+### to compile the project using Maven and run the application
 
-## Getting Started
+Use the "mvn clean install" command on the terminal to get the jar files
 
-These instructions will guide you on how to set up and run the Library Management System on your local machine.
+Then to run the compiled application, use
+"java -jar target/library-management-system.jar"
 
-### Prerequisites
+OR
 
-- Java Development Kit (JDK) installed
-- Apache Maven installed
-
-### Installing
-
-1. Clone the repository to your device:
-
-git clone https://github.com/your-username/library-management-system.git
-
-2. Navigate to the project directory:
-
-cd library-management-system
-
-3. Compile the project using Maven:
-
-mvn clean compile
-
-## Running the Application
-
-1. Run the application using the following command:
-
-mvn exec:java -Dexec.mainClass="# library-management-system.example.LibraryManagementSystem"
-
-2. Follow the on-screen prompts to use the Library Management System.
+simply click the Debug java button
 
 ## Features
+
+1. Book.java class
+-represents a book in the library. It stores information about each bookID, title, author, total copies, available copies, due date for borrowed books, and return date for returned books. 
+
+2. Member.java class
+-represents a member in the library. It stores information about each member with a unique member ID, name, age, phone no., dues of the member, and also stores a list of the books the member has borrowed.
+
+3. Library.java
+-represents a library in a library management system. It provides methods for adding and removing books and members, finding members by name or phone number, finding books by ID, and displaying information about members and their borrowed books and fines.
+
+4. LibraryManagementSystem.java class
+- It provides an interface for interacting with the library as both a librarian and a member
 
 Inside the LibraryManagementSystem: 
 - Librarian functionalities: register member, remove member, add book, remove book, View all members along with their books and fines to be paid, View all books.

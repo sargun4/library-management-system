@@ -9,10 +9,10 @@ public class Library {
     private List<Member> members;
     private Member currentLoggedInMember; //keepin track of member
 
-    public Member getCurrentLoggedInMember() {
+    public Member getCurrentLoggedInMember() { //retrieves the currently logged-in member
         return currentLoggedInMember;
     }
-    public void setCurrentLoggedInMember(Member member) {
+    public void setCurrentLoggedInMember(Member member) {//sets the currently logged-in member
         this.currentLoggedInMember = member;
     }
 
@@ -72,7 +72,7 @@ public class Library {
         }
     }
 
-    public Member findMember(String name, String phoneNo) {
+    public Member findMember(String name, String phoneNo) {//earches for a member by their name and phone no
         for (Member member : members) {
             if (member.getName().equals(name) && member.getphoneNo().equals(phoneNo)) {
                 return member;

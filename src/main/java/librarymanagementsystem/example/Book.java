@@ -41,7 +41,7 @@ public class Book {
         this.availableCopies = availableCopies;
     }
 
-
+    
     private LocalDateTime dueDate;
     private LocalDateTime returnDate;
 
