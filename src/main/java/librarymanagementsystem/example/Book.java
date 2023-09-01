@@ -31,16 +31,34 @@ public class Book {
     public int getTotalCopies() {
         return totalCopies;
     }
-    public void setTotalCopies(int totalCopies) { 
-        this.totalCopies = totalCopies;
+    public void setTotalCopies(int totalCopies) {
+        try {
+            if (totalCopies >= 0) {
+                this.totalCopies = totalCopies;
+            } else {
+                throw new IllegalArgumentException("Total copies cannot be negative.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
+    
+    
+    
     public int getAvailableCopies() {
         return availableCopies;
     }
     public void setAvailableCopies(int availableCopies) {
-        this.availableCopies = availableCopies;
+        try {
+            if (availableCopies >= 0) {
+                this.availableCopies = availableCopies;
+            } else {
+                throw new IllegalArgumentException("Available copies cannot be negative.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
     }
-
     
     private LocalDateTime dueDate;
     private LocalDateTime returnDate;
