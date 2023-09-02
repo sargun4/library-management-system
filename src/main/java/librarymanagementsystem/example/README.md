@@ -29,49 +29,37 @@ Inside the LibraryManagementSystem:
 - Librarian functionalities: register member, remove member, add book, remove book, View all members along with their books and fines to be paid, View all books.
 - Member functionalities: view available books, borrow book, return book, view borrowed books, pay dues.
 
-###
+#### registerMember
 - in the registerMember function, if the phone number is unique, it proceeds to create a new Member object with the inputted name, age & phone no. If not, then the isPhoneNoUsed func from the Library classs is called and you would have to use a unique phone no. which isnt already registered with the library
 
-###
+#### addbook
 - in addbook, generateUniqueBookId is a func in which I return the current value of bookIdctr and then increment it by 1 which ensures that we get a unique BookID each time.
 
 
-###
+#### borrowBook
 - the borrowBook func firstly gets the currently logged-in member using lib.getCurrentLoggedInMember();
 if the member already has 2 borrowed books, it prints that they've reached the maximum borrowing limit, and func returns, preventing them from borrowing another book.
 
-- It checks if the member has any borrowed books and, if so, iterates through them to check if any of the borrowed books are overdue. An overdue book is one where the current date is after the due date (after a 10-second period since we assume 1sec=1day). If an overdue book is found, it prints a message indicating that the member has an overdue book and cannot borrow another until it's returned. The function then returns, preventing further borrowing.
+- It checks if the member has any borrowed books and, if so, iterates through them to check if any of the borrowed books are overdue. An overdue book is one where the current date is after the due date (after a 10-second time gap since we assume 1sec=1day). If an overdue book is found, it prints that the member has an overdue book and cannot borrow another until it's returned. The function then returns, preventing further borrowing.
 
-- If the book is not available (all copies are already borrowed), it prints a message indicating that the book is not available for borrowing, and the function returns.
-If the book is available and all conditions are met, it calculates the due date for the book using bookToBorrow.calculateDueDate() and sets this due date in the book object using bookToBorrow.setDueDate(dueDate).
+- If the book is available and all conditions are met, it calculates the due date for the book using bookToBorrow.calculateDueDate() and sets this due date in the book object using bookToBorrow.setDueDate(dueDate).
 
-- It decrements both the available copies and total copies of the book by 1 (one more copy has been borrowed).
+- It decrements both the available copies and total copies of the book by 1 (since one copy has been borrowed).
 
 - It adds the borrowed book to the member's list of borrowed books using currMember.getBooksBorrowed().add(bookToBorrow).
 
 
-### the returnBook
-- It gets the list of books that the current member has borrowed using currMember.getBooksBorrowed().
+#### returnBook
 
-- It checks if the list of borrowed books is empty, indicating that the member hasn't borrowed any books. If so, it prints a message stating that the member hasn't borrowed any books and returns, aborting the return process.
-
-- It initializes a variable returndate to null. This variable will be used to store the return date of the book being returned.
-
-- It then prints a list of borrowed books along with their Book ID, title, author, and return date (if set). This provides the member with a summary of the books they have borrowed.
+- Initialized a variable returndate to null. This variable will be used to store the return date of the book being returned.
 
 - It prompts the user to enter the Book ID of the book they want to return.
 
-- It reads the Book ID input from the user.
+- If the book is not found, or if the book with the given ID is not in the member's list of borrowed books, it prints that the book was not found in the borrowed list, and the function returns.
 
-- It attempts to find the book with the given Book ID using lib.findBook(bookId).
+- if its found, it retrieves the due date of the book from the book object using bookToReturn.getDueDate() and stores it in dueDate.
 
-- If the book is not found, or if the book with the given ID is not in the member's list of borrowed books, it prints a message indicating that the book was not found in the borrowed list, and the function returns, aborting the return process.
-
-- It retrieves the due date of the book from the book object using bookToReturn.getDueDate() and stores it in a variable dueDate.
-
-- It calculates the fine (if any) based on the due date and the actual return date. If the returndate is after the dueDate, it means the book is returned late, and a fine is calculated. The fine is calculated as 3 rupees per second for the duration the book is late.
-
-- If a fine is applicable (i.e., returndate is after dueDate), it adds the fine amount to the member's dues using currMember.setDues(currMember.getDues() + fine) and prints a message indicating the fine amount.
+- If a fine is applicable (i.e., returndate is after dueDate), it adds the fine amount to the member's dues using currMember.setDues(currMember.getDues() + fine) and prints the fine amount.
 
 - It updates the total copies of the book using lib.updateTotalCopies(bookToReturn.getBookId(), bookToReturn.getTotalCopies() + 1). This increases the total copies of the book as it's returned.
 
@@ -79,30 +67,15 @@ If the book is available and all conditions are met, it calculates the due date 
 
 - It increments the available copies of the book by 1 using bookToReturn.setAvailableCopies(bookToReturn.getAvailableCopies() + 1) to reflect that one more copy is available for borrowing.
 
-- It removes the book from the member's list of borrowed books using booksBorrowed.remove(bookToReturn).
-
-<!-- After returning the book, we update the available copies of the book by incrementing it by 1 (bookToReturn.setAvailableCopies(bookToReturn.getAvailableCopies() + 1)).
-
-We also remove the book from the member's borrowed list (booksBorrowed.remove(bookToReturn)). -->
+- It removes the book from the member's list of borrowed books using booksBorrowed.remove(bookToReturn) since book has been returnd to library.
 
 
-### the payDues 
-- It starts by getting the currently logged-in member (the one who wants to pay their dues) using lib.getCurrentLoggedInMember() and stores it in the variable currMember.
+#### payDues 
 
 - It retrieves the amount of dues that the current member has using currMember.getDues() and stores it in the variable dues.
 
-- It prints a separator line to separate this action from previous menu output.
+- It prompts the user to enter the amount they want to pay and reads the payment amount using double payment = sc.nextDouble();
 
-- It checks if the member has any dues (dues == 0). If the member has no dues, it prints a message indicating that there are no dues to pay, and the function returns, ending the dues payment process.
-
-- If the member has dues, it prints a message indicating the current amount of dues ("Your current dues: " + dues + " Rs.").
-
-- It prompts the user to enter the amount they want to pay and reads the payment amount using double payment = sc.nextDouble();.
-
-- It checks if the entered payment amount is less than or equal to zero (payment <= 0). If the payment amount is not valid (zero or negative), it prints a message indicating that the payment amount is invalid and returns, aborting the payment process.
-
-- It checks if the entered payment amount is greater than the member's total dues (payment > dues). If the member is trying to pay more than their dues, it prints a message indicating that they cannot pay more than their dues, and the function returns, aborting the payment process.
+- It checks if the entered payment amount is less than or equal to zero (payment <= 0). If the payment amount is not valid (zero or negative), it prints that the payment amount is invalid and returns. If the member is trying to pay more than their dues, it prints that they cannot pay more than their dues, and the function returns.
 
 - If the payment amount is valid and less than or equal to the member's dues, it subtracts the payment amount from the member's dues using currMember.setDues(dues - payment) to update the remaining dues.
-
-- It prints a success message indicating that the payment was successful, the amount paid (payment), and the remaining dues after the payment ("Payment of " + payment + " Rs. successfully done. Remaining dues: " + currMember.getDues()).
