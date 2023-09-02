@@ -95,7 +95,7 @@ We also remove the book from the member's borrowed list (booksBorrowed.remove(bo
 
 - It checks if the member has any dues (dues == 0). If the member has no dues, it prints a message indicating that there are no dues to pay, and the function returns, ending the dues payment process.
 
-If the member has dues, it prints a message indicating the current amount of dues ("Your current dues: " + dues + " Rs.").
+- If the member has dues, it prints a message indicating the current amount of dues ("Your current dues: " + dues + " Rs.").
 
 - It prompts the user to enter the amount they want to pay and reads the payment amount using double payment = sc.nextDouble();.
 
@@ -103,6 +103,6 @@ If the member has dues, it prints a message indicating the current amount of due
 
 - It checks if the entered payment amount is greater than the member's total dues (payment > dues). If the member is trying to pay more than their dues, it prints a message indicating that they cannot pay more than their dues, and the function returns, aborting the payment process.
 
-If the payment amount is valid and less than or equal to the member's dues, it subtracts the payment amount from the member's dues using currMember.setDues(dues - payment) to update the remaining dues.
+- If the payment amount is valid and less than or equal to the member's dues, it subtracts the payment amount from the member's dues using currMember.setDues(dues - payment) to update the remaining dues.
 
 - It prints a success message indicating that the payment was successful, the amount paid (payment), and the remaining dues after the payment ("Payment of " + payment + " Rs. successfully done. Remaining dues: " + currMember.getDues()).
