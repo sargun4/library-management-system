@@ -28,9 +28,13 @@ public class Book {
     public String getAuthor() {
         return author;
     }
+
+
     public int getTotalCopies() {
         return totalCopies;
     }
+
+    
     public void setTotalCopies(int totalCopies) {
         try {
             if (totalCopies >= 0) {

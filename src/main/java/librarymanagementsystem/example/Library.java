@@ -21,6 +21,19 @@ public class Library {
         this.books = new ArrayList<>();
         this.members = new ArrayList<>();
     }
+
+
+
+    public boolean isPhoneNoUsed(String phoneNo) {
+        for (Member member : members) {
+            if (member.getphoneNo().equals(phoneNo)) {
+                return true; // Phone number is already in use
+            }
+        }
+        return false; // Phone number is not in use
+    }
+    
+
     public List<Book> getAvailableBooks() {
         List<Book> availableBooks = new ArrayList<>();
         for (Book book : books) {
@@ -34,43 +47,9 @@ public class Library {
     public List<Member> getMembers() {
         return members;
     }
-    // public void addBook(Book book) {
-    //     books.add(book);
-    //     System.out.println("Enter Total Copies:");
-    //     Scanner sc = new Scanner(System.in);
-    //     int totalCopies = sc.nextInt();
-    //     sc.nextLine(); // Consume newline
+    //
 
-    //     book.setTotalCopies(totalCopies); // Update total copies
-    //     book.setAvailableCopies(totalCopies); // Set available copies to total copies initially
-
-    //     System.out.println("Book Added Successfully!");
-    // }
-
-    // public void removeBook(int bookId) {
-    //     Book bookToRemove = findBook(bookId);
-    //     if (bookToRemove != null) {
-    //         books.remove(bookToRemove);
-    //         System.out.println("Book Removed Successfully!");
-    //     } else {
-    //         System.out.println("Book with ID " + bookId + " not found.");
-    //     }
-    // }
-
-    // public void registerMember(Member member) {
-    //     members.add(member);
-    //     System.out.println("Member Successfully Registered with ID: " + member.getMemberId());
-    // }
-
-    // public void removeMember(int memberId) {
-    //     Member memberToRemove = findMemberById(memberId);
-    //     if (memberToRemove != null) {
-    //         members.remove(memberToRemove);
-    //         System.out.println("Member Removed Successfully!");
-    //     } else {
-    //         System.out.println("Member with ID " + memberId + " not found.");
-    //     }
-    // }
+    
     public void addBook(Book book) {
         try {
             books.add(book);
@@ -82,7 +61,7 @@ public class Library {
             if (totalCopies >= 0) {
                 book.setTotalCopies(totalCopies); // Update total copies
                 book.setAvailableCopies(totalCopies); // Set available copies to total copies initially
-                System.out.println("Book Added Successfully!");
+                // System.out.println("Book Added Successfully! Book ID: " + bookId);
             } else {
                 throw new IllegalArgumentException("Total copies cannot be negative.");
             }
@@ -178,6 +157,18 @@ public class Library {
             double dues = member.getDues();
             System.out.println("Fines to be Paid: " + dues + " Rs.");
             System.out.println("--------------------------");
+        }
+    }
+    
+
+    public void updateTotalCopies(int bookId, int newTotalCopies) {
+        Book bookToUpdate = findBook(bookId);
+    
+        if (bookToUpdate != null) {
+            bookToUpdate.setTotalCopies(newTotalCopies);
+            System.out.println("Total copies updated successfully!");
+        } else {
+            System.out.println("Book with ID " + bookId + " not found.");
         }
     }
     

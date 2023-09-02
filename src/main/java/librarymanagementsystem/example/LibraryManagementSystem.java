@@ -77,40 +77,54 @@ public class LibraryManagementSystem {
     }
 
     //librarian functionalities
-    // Inside the registerMember function
+
     private static void registerMember(Library lib, Scanner sc) {
         System.out.println("--------------------------");
-
+    
         System.out.println("Enter Member Name:");
         String name = sc.nextLine();
-
+    
         System.out.println("Enter Member Age:");
         int age = sc.nextInt();
         sc.nextLine();
-
+    
         System.out.println("Enter Member Phone Number:");
         String phoneNo = sc.nextLine();
+        
+        //check if the phone no is already associated with an existing member
+        if (lib.isPhoneNoUsed(phoneNo)) {
+            System.out.println("Phone no already associated with another member. Please use a unique phone no.");
+            return;
+        }
+    
         System.out.println("--------------------------");
         Member newMember = new Member(name, age, phoneNo);
         lib.registerMember(newMember);
-
-        // System.out.println("Member Successfully Registered with ID: " + newMember.getMemberId() );
+        
     }
-
+    
     private static void removeMember(Library lib, Scanner sc) {
         System.out.println("--------------------------");
         System.out.println("Enter Member ID to Remove:");
         int memberId = sc.nextInt();
         sc.nextLine();
-    
         lib.removeMember(memberId);
     }
+
+    private static int bookIdctr = 1;
+    // to generat unique BookID
+    private static int generateUniqueBookId() {
+        return bookIdctr++;
+    }
+
+
     private static void addBook(Library lib, Scanner sc) {
         System.out.println("--------------------------");
-        System.out.println("Enter Book ID:");
-        int bookId = sc.nextInt();
-        sc.nextLine();
-    
+        // System.out.println("Enter Book ID:");
+        // int bookId = sc.nextInt();
+        // sc.nextLine();
+        int bookId = generateUniqueBookId();
+
         System.out.println("Enter Book Title:");
         String title = sc.nextLine();
     
@@ -122,10 +136,11 @@ public class LibraryManagementSystem {
         // sc.nextLine();
         Book newBook = new Book(bookId, title, author);
         lib.addBook(newBook);
-        
+        System.out.println("Book Added Successfully! Book ID: " + bookId);
         System.out.println("--------------------------");
     }
     
+
     private static void removeBook(Library lib, Scanner sc) {
         System.out.println("--------------------------");
         System.out.println("Enter Book ID to Remove:");
@@ -157,24 +172,6 @@ public class LibraryManagementSystem {
         }
     }
     
-    private static void listMembers(Library lib) {
-        List<Member> members = lib.getMembers();
-        System.out.println("--------------------------");
-        System.out.println("List of Registered Members:");
-    
-        if (members.isEmpty()) {
-            System.out.println("No members at the moment.");
-            return;
-        }
-    
-        for (Member member : members) {
-            System.out.println("Member ID: " + member.getMemberId());
-            System.out.println("Name: " + member.getName());
-            System.out.println("Age: " + member.getAge());
-            System.out.println("Phone Number: " + member.getphoneNo());
-            System.out.println("--------------------------");
-        }
-    }
     
     private static void memberMenu(Library lib, Scanner sc) {
         System.out.println("--------------------------");
@@ -191,7 +188,7 @@ public class LibraryManagementSystem {
             return;
         }
     
-        lib.setCurrentLoggedInMember(currMember); // Set the currently logged-in member
+        lib.setCurrentLoggedInMember(currMember); //set the currently logged-in member
     
         while (true) {
             System.out.println("Member Menu:");
@@ -229,6 +226,9 @@ public class LibraryManagementSystem {
             }
         }
     }
+
+    //memeber functionalities
+
     private static void viewAvailableBooks(Library lib) {
         List<Book> availableBooks = lib.getAvailableBooks();
         System.out.println("--------------------------");
@@ -241,9 +241,8 @@ public class LibraryManagementSystem {
             System.out.println("---------------------------------");
         }
     }
-    
-    // borr
-      
+
+    // borrow
     private static void borrowBook(Library lib, Scanner sc) {
         System.out.println("--------------------------");
         System.out.println("Enter the Book ID to borrow:");
@@ -258,20 +257,35 @@ public class LibraryManagementSystem {
             System.out.println("Book with ID " + bookId + " not found.");
             return;
         }
-    
+        
         if (currMember.getBooksBorrowed().size() >= 2) {
             System.out.println("You've reached the maximum borrowing limit.");
             return;
         }
     
+        // Check if the member has already borrowed a book
+        List<Book> borrowedBooks = currMember.getBooksBorrowed();
+        if (!borrowedBooks.isEmpty()) {
+            // Check if any of the borrowed books are overdue
+            LocalDateTime currentDate = LocalDateTime.now();
+            for (Book borrowedBook : borrowedBooks) {
+                LocalDateTime dueDate = borrowedBook.getDueDate();
+                if (dueDate != null && currentDate.isAfter(dueDate.plusSeconds(10))) {
+                    System.out.println("You have an overdue book. Cannot borrow another until it's returned.");
+                    return;
+                }
+            }
+        }
+
         if (!bookToBorrow.isAvailable()) {
             System.out.println("Sorry, the book is not available for borrowing.");
             return;
         }
-    
+        
+
         LocalDateTime dueDate = bookToBorrow.calculateDueDate();
         bookToBorrow.setDueDate(dueDate);
-    
+
         // Decrement both available and total copies
         bookToBorrow.setAvailableCopies(bookToBorrow.getAvailableCopies() - 1);
         bookToBorrow.setTotalCopies(bookToBorrow.getTotalCopies() - 1);
@@ -279,8 +293,8 @@ public class LibraryManagementSystem {
         currMember.getBooksBorrowed().add(bookToBorrow);
          //due date is 10 sec after borrowed time
         System.out.println("Book successfully borrowed! Due date: " + dueDate);
-        }
-                
+    }
+            
         
     private static void returnBook(Library lib, Scanner sc) {
         System.out.println("--------------------------");
@@ -317,12 +331,16 @@ public class LibraryManagementSystem {
             return;
         }
         
-        LocalDateTime currDate = LocalDateTime.now(); 
+        // LocalDateTime currDate = LocalDateTime.now(); 
         LocalDateTime dueDate = bookToReturn.getDueDate(); //stored due date
         
         System.out.printf("Due date: %s%n", dueDate);
         System.out.printf("return date: %s%n", returndate);//ythis is the return date
         
+
+
+
+
 
         ///calc fine if due date is passed
         if (dueDate != null && returndate.isAfter(dueDate)) {
@@ -333,12 +351,17 @@ public class LibraryManagementSystem {
             System.out.println("A fine of " + fine + " rupees has been applied for late return.");
         }
 
-        bookToReturn.setReturnDate(currDate);
+        
+        //updaying the total copies of the book
+        lib.updateTotalCopies(bookToReturn.getBookId(), bookToReturn.getTotalCopies()+1);
+
+        bookToReturn.setReturnDate(returndate);
 
         bookToReturn.setAvailableCopies(bookToReturn.getAvailableCopies() + 1);
         booksBorrowed.remove(bookToReturn);
-
+    
         System.out.println("Book successfully returned!");
+        // lib.updateTotalCopies(bookToReturn.getBookId(), bookToReturn.getTotalCopies());
     }
         
     private static void viewMyBooks(Library lib) {
