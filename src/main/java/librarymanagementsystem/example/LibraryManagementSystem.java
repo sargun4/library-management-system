@@ -338,10 +338,6 @@ public class LibraryManagementSystem {
         System.out.printf("return date: %s%n", returndate);//ythis is the return date
         
 
-
-
-
-
         ///calc fine if due date is passed
         if (dueDate != null && returndate.isAfter(dueDate)) {
             long secondsLate = ChronoUnit.SECONDS.between(dueDate, returndate);

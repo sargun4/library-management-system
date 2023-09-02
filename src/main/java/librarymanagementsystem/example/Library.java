@@ -9,31 +9,27 @@ public class Library {
     private List<Member> members;
     private Member currentLoggedInMember; //keepin track of member
 
-    public Member getCurrentLoggedInMember() { //retrieves the currently logged-in member
+    public Member getCurrentLoggedInMember() { 
         return currentLoggedInMember;
     }
-    public void setCurrentLoggedInMember(Member member) {//sets the currently logged-in member
+    public void setCurrentLoggedInMember(Member member) {
         this.currentLoggedInMember = member;
     }
-
 
     public Library() {
         this.books = new ArrayList<>();
         this.members = new ArrayList<>();
     }
 
-
-
     public boolean isPhoneNoUsed(String phoneNo) {
         for (Member member : members) {
             if (member.getphoneNo().equals(phoneNo)) {
-                return true; // Phone number is already in use
+                return true; //phone no is already in use
             }
         }
-        return false; // Phone number is not in use
+        return false; //phone no is not in use
     }
     
-
     public List<Book> getAvailableBooks() {
         List<Book> availableBooks = new ArrayList<>();
         for (Book book : books) {
@@ -47,8 +43,6 @@ public class Library {
     public List<Member> getMembers() {
         return members;
     }
-    //
-
     
     public void addBook(Book book) {
         try {
@@ -56,11 +50,12 @@ public class Library {
             System.out.println("Enter Total Copies:");
             Scanner sc = new Scanner(System.in);
             int totalCopies = sc.nextInt();
-            sc.nextLine(); // Consume newline
+            sc.nextLine(); 
     
             if (totalCopies >= 0) {
-                book.setTotalCopies(totalCopies); // Update total copies
-                book.setAvailableCopies(totalCopies); // Set available copies to total copies initially
+                book.setTotalCopies(totalCopies); 
+                book.setAvailableCopies(totalCopies);
+
                 // System.out.println("Book Added Successfully! Book ID: " + bookId);
             } else {
                 throw new IllegalArgumentException("Total copies cannot be negative.");

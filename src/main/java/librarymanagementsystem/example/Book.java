@@ -28,13 +28,9 @@ public class Book {
     public String getAuthor() {
         return author;
     }
-
-
     public int getTotalCopies() {
         return totalCopies;
     }
-
-    
     public void setTotalCopies(int totalCopies) {
         try {
             if (totalCopies >= 0) {
@@ -46,8 +42,6 @@ public class Book {
             System.err.println("Error: " + e.getMessage());
         }
     }
-    
-    
     
     public int getAvailableCopies() {
         return availableCopies;
