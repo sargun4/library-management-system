@@ -14,17 +14,22 @@ simply click the Debug java button
 ## Features
 
 1. Book.java class
--represents a book in the library. It stores information about each bookID, title, author, total copies, available copies, due date for borrowed books, & return date for returned books. 
+- represents a book in the library. It stores information about each bookID, title, author, total copies, available copies, due date for borrowed books, & return date for returned books. 
 
 2. Member.java class
--represents a member in the library. It stores information about each member with a unique member ID, name, age, phone no., dues of the member, & also stores a list of the books the member has borrowed.
+- represents a member in the library. It stores information about each member with a unique member ID, name, age, phone no., dues of the member, & also stores a list of the books the member has borrowed.
 
 3. Library.java
--represents a library in a library management system. It provides methods for adding & removing books & members, finding members by name or phone number, finding books by ID, & displaying information about members & their borrowed books & fines.
-
+- represents a library in a library management system. It provides methods for adding & removing books & members, finding members by name or phone number, finding books by ID, & displaying information about members & their borrowed books & fines.
+- stores books and members in the form of lists-
+        private List<Book> books
+        private List<Member> members
+- isPhoneNoUsed(String phoneNo): checks if a given phone number is already associated with an existing member. It searches the members list for a matching phone number. 
+- viewAllMembersWithBooksAndFines(): Prints a list of all members along with the books they have borrowed and any fines they owe. 
 
 4. LibraryManagementSystem.java class
-- It provides an interface for interacting with the library as both a librarian & a member
+- It provides an interface for interacting with the library as both a librarian & a member.
+- This contains the main method with the librarian & member functionalities.
 
 Inside the LibraryManagementSystem: 
 - Librarian functionalities: register member, remove member, add book, remove book, View all members along with their books & fines to be paid, View all books.
@@ -70,7 +75,7 @@ if the member already has 2 borrowed books, it prints that they've reached the m
 
 - It updates the total copies of the book using lib.updateTotalCopies(bookToReturn.getBookId(), bookToReturn.getTotalCopies() + 1). This increases the total copies of the book as it's returned.
 
-- It sets the return date of the book to the returndate using bookToReturn.setReturnDate(returndate).
+- then it sets the return date of the book to the returndate using bookToReturn.setReturnDate(returndate).
 
 - It increments the available copies of the book by 1 using bookToReturn.setAvailableCopies(bookToReturn.getAvailableCopies() + 1) to reflect that one more copy is available for borrowing.
 
@@ -81,7 +86,7 @@ if the member already has 2 borrowed books, it prints that they've reached the m
 
 - It retrieves the amount of dues that the current member has using currMember.getDues() & stores it in the variable dues.
 
-- It prompts the user to enter the amount they want to pay & reads the payment amount using double payment = sc.nextDouble();
+- and then prompts the user to enter the amount they want to pay & reads the payment amount using double payment = sc.nextDouble();
 
 - It checks if the entered payment amount is less than or equal to zero (payment <= 0). If the payment amount is not valid (zero or negative), it prints that the payment amount is invalid & returns. If the member is trying to pay more than their dues, it prints that they cannot pay more than their dues, & the function returns.
 

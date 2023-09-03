@@ -73,7 +73,6 @@ public class Book {
         return dueDate;
     }
 
-    //imp 
     public LocalDateTime getReturnDate() {
         return LocalDateTime.now();
     }
