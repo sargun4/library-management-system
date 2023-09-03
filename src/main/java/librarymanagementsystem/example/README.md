@@ -22,8 +22,8 @@ simply click the Debug java button
 3. Library.java
 - represents a library in a library management system. It provides methods for adding & removing books & members, finding members by name or phone number, finding books by ID, & displaying information about members & their borrowed books & fines.
 - stores books and members in the form of lists-
-        private List<Book> books
-        private List<Member> members
+            private List<Book> books
+            private List<Member> members
 - isPhoneNoUsed(String phoneNo): checks if a given phone number is already associated with an existing member. It searches the members list for a matching phone number. 
 - viewAllMembersWithBooksAndFines(): Prints a list of all members along with the books they have borrowed and any fines they owe. 
 
